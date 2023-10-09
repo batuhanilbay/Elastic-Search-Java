@@ -3,6 +3,8 @@ package com.spring.elasticsearch.controller;
 import com.spring.elasticsearch.entity.Car;
 import com.spring.elasticsearch.service.CarServiceImpl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -20,8 +22,13 @@ public class CarController {
 
 
     @GetMapping(value = "/{brand}")
-    public List<Car> findCarsByBrand(@PathVariable String brand) {
-        return carService.getCarsByBrand(brand);
+    public ResponseEntity<List<Car>> findCarsByBrand(@PathVariable String brand) {
+        List<Car> cars = carService.getCarsByBrand(brand);
+        return ResponseEntity.ok(cars);
     }
-
+    @GetMapping(value = "/getAll")
+    public ResponseEntity<Iterable<Car>> getAllCars() {
+        Iterable<Car> cars = carService.getAllCars();
+        return ResponseEntity.ok(cars);
+    }
 }

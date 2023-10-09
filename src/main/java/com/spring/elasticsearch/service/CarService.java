@@ -10,4 +10,7 @@ public interface CarService {
 
     Car save(Car car);
 
+    Iterable<Car> getAllCars();
+
+
 }

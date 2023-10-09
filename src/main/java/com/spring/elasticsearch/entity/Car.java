@@ -24,7 +24,7 @@ public class Car {
     @Field(name = "brand", type = FieldType.Text)
     private String brand;
 
-    @Field(name = "car_type", type = FieldType.Keyword)
+    @Field(name = "car_type", type = FieldType.Text)
     private CarType type;
 
     @Field(name = "price", type = FieldType.Long)

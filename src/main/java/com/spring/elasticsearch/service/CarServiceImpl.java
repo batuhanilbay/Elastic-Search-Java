@@ -16,11 +16,18 @@ public class CarServiceImpl implements CarService{
 
     @Override
     public List<Car> getCarsByBrand(String brand) {
-        return carRepository.findByBrand(brand);
+        return carRepository.findByBrandLike(brand);
     }
 
     @Override
     public Car save(Car car) {
         return carRepository.save(car);
+    }
+
+    @Override
+    public Iterable<Car> getAllCars() {
+
+
+        return carRepository.findAll();
     }
 }
