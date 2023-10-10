@@ -8,6 +8,6 @@ import java.util.List;
 @Repository
 public interface CarRepository extends ElasticsearchRepository<Car,Long> {
 
-    List<Car> findByBrandLike(String brand);
+    List<Car> findByBrand(String brand);
 
 }

@@ -16,7 +16,7 @@ public class CarServiceImpl implements CarService{
 
     @Override
     public List<Car> getCarsByBrand(String brand) {
-        return carRepository.findByBrandLike(brand);
+        return carRepository.findByBrand(brand);
     }
 
     @Override

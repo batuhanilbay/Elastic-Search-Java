@@ -19,7 +19,7 @@ import org.springframework.data.elasticsearch.annotations.FieldType;
 public class Car {
 
     @Id
-    private Long id;
+    private String id;
 
     @Field(name = "brand", type = FieldType.Text)
     private String brand;
@@ -33,4 +33,14 @@ public class Car {
     @Field(name = "origin", type = FieldType.Text)
     private String country;
 
+    @Override
+    public String toString() {
+        return "Car{" +
+                "id=" + id.toString() +
+                ", brand='" + brand + '\'' +
+                ", type=" + type +
+                ", price=" + price +
+                ", country='" + country + '\'' +
+                '}';
+    }
 }
