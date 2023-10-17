@@ -21,7 +21,6 @@ public class CarController {
         return carService.save(car);
     }
 
-
     @GetMapping(value = "/{brand}")
     public ResponseEntity<List<Car>> findCarsByBrand(@PathVariable String brand) {
         List<Car> cars = carService.getCarsByBrand(brand);
@@ -32,10 +31,32 @@ public class CarController {
         Iterable<Car> cars = carService.getAllCars();
         return ResponseEntity.ok(cars);
     }
-
     @GetMapping(value = "/get-car-with-model-name")
     public ResponseEntity<List<Car>> getCarsByModelName(@RequestParam("modelName") String modelName) {
         List<Car> cars = carService.getCarsByModel(modelName);
+        return ResponseEntity.ok(cars);
+    }
+    @GetMapping(value = "/less-than-criteria/{price}")
+    public ResponseEntity<List<Car>> findCarsWithLessThanCriteria(@PathVariable Long price) {
+        List<Car> cars = carService.findByCarPriceWithLessThanCriteria(price);
+        return ResponseEntity.ok(cars);
+    }
+    @GetMapping(value = "/greater-than-criteria/{price}")
+    public ResponseEntity<List<Car>> findCarsWithGreaterThanCriteria(@PathVariable Long price) {
+        List<Car> cars = carService.findByCarPriceWithGreaterThanCriteria(price);
+
+        return ResponseEntity.ok(cars);
+    }
+
+    @GetMapping(value = "/interval-criteria/{upperPrice}/{lowerPrice}")
+    public ResponseEntity<List<Car>> findCarsWithInterval(@PathVariable Long upperPrice,@PathVariable Long lowerPrice) {
+        List<Car> cars = carService.findByCarUpperAndLowerPriceInterval(upperPrice,lowerPrice);
+        return ResponseEntity.ok(cars);
+    }
+
+    @GetMapping(value = "/get-car-with-model")
+    public ResponseEntity<List<Car>> getCarsByModelNameWithStringQuery(@RequestParam("model") String model) {
+        List<Car> cars = carService.findByCarsByModel(model);
         return ResponseEntity.ok(cars);
     }
 }

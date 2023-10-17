@@ -44,4 +44,13 @@ public class Car {
     @Field(name="update_date",type = FieldType.Date)
     private Date updatedDate;
 
+    @Override
+    public String toString() {
+        return "Car{" +
+                "id='" + id + '\'' +
+                ", brand='" + brand + '\'' +
+                ", model='" + model + '\'' +
+                ", price=" + price +
+                '}';
+    }
 }
