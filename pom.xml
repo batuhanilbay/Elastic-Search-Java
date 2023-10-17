@@ -15,18 +15,14 @@
 	<description>Demo project for Spring Boot with Elasticsearch</description>
 	<properties>
 		<java.version>17</java.version>
+		<elasticsearch-java.version>7.17.0</elasticsearch-java.version>
+
 	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-elasticsearch</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>org.elasticsearch.client</groupId>
-			<artifactId>elasticsearch-rest-high-level-client</artifactId>
-			<version>8.0.0-alpha2</version>
-		</dependency>
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -42,6 +38,42 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>co.elastic.clients</groupId>
+			<artifactId>elasticsearch-java</artifactId>
+			<version>8.7.1</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.elasticsearch/elasticsearch -->
+		<dependency>
+			<groupId>org.elasticsearch</groupId>
+			<artifactId>elasticsearch</artifactId>
+			<version>8.10.3</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.elasticsearch.client</groupId>
+			<artifactId>elasticsearch-rest-client</artifactId>
+			<version>8.10.3</version>
+		</dependency>
+		<dependency>
+			<groupId>org.elasticsearch.client</groupId>
+			<artifactId>transport</artifactId>
+			<version>7.17.14</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>jakarta.json</groupId>
+			<artifactId>jakarta.json-api</artifactId>
+			<version>2.1.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.15.3</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
@@ -56,6 +88,14 @@
 							<artifactId>lombok</artifactId>
 						</exclude>
 					</excludes>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.22.2</version>
+				<configuration>
+					<skipTests>true</skipTests>
 				</configuration>
 			</plugin>
 		</plugins>

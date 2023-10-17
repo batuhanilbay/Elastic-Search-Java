@@ -12,5 +12,7 @@ public interface CarService {
 
     Iterable<Car> getAllCars();
 
+    List<Car> getCarsByModel(String model);
+
 
 }
