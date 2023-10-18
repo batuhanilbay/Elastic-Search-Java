@@ -1,11 +1,8 @@
 package com.spring.elasticsearch.controller;
 
 import com.spring.elasticsearch.entity.Car;
-import com.spring.elasticsearch.enums.CarType;
 import com.spring.elasticsearch.service.CarServiceImpl;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;

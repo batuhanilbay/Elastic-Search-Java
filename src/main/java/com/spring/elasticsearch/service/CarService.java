@@ -2,8 +2,6 @@ package com.spring.elasticsearch.service;
 
 
 import com.spring.elasticsearch.entity.Car;
-import com.spring.elasticsearch.enums.CarType;
-
 import java.util.List;
 
 public interface CarService {
