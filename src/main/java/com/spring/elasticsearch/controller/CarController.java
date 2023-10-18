@@ -24,12 +24,12 @@ public class CarController {
         List<Car> cars = carService.getCarsByBrand(brand);
         return ResponseEntity.ok(cars);
     }
-    @GetMapping(value = "/getAll")
+    @GetMapping(value = "/get-cars")
     public ResponseEntity<Iterable<Car>> getAllCars() {
         Iterable<Car> cars = carService.getAllCars();
         return ResponseEntity.ok(cars);
     }
-    @GetMapping(value = "/get-car-with-model-name")
+    @GetMapping(value = "/get-cars-model-name")
     public ResponseEntity<List<Car>> getCarsByModelName(@RequestParam("modelName") String modelName) {
         List<Car> cars = carService.getCarsByModel(modelName);
         return ResponseEntity.ok(cars);
@@ -52,13 +52,13 @@ public class CarController {
         return ResponseEntity.ok(cars);
     }
 
-    @GetMapping(value = "/get-car-with-model")
+    @GetMapping(value = "/get-cars-with-model")
     public ResponseEntity<List<Car>> getCarsByModelNameWithStringQuery(@RequestParam("model") String model) {
         List<Car> cars = carService.findCarsByModel(model);
         return ResponseEntity.ok(cars);
     }
 
-    @GetMapping(value = "/get-car-with-car-type")
+    @GetMapping(value = "/get-cars-with-car-type")
     public ResponseEntity<List<Car>> getCarsByTypeWithNativeQuery(@RequestParam("type") String type) {
         List<Car> cars = carService.findCarsByCarType(type);
         return ResponseEntity.ok(cars);
