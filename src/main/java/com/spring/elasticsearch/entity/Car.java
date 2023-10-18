@@ -1,6 +1,7 @@
 package com.spring.elasticsearch.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.spring.elasticsearch.enums.CarType;
 import com.spring.elasticsearch.enums.FuelType;
 import com.spring.elasticsearch.enums.GearType;

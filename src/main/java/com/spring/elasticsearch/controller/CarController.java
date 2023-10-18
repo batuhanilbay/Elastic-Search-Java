@@ -1,6 +1,7 @@
 package com.spring.elasticsearch.controller;
 
 import com.spring.elasticsearch.entity.Car;
+import com.spring.elasticsearch.enums.CarType;
 import com.spring.elasticsearch.service.CarServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -38,25 +39,31 @@ public class CarController {
     }
     @GetMapping(value = "/less-than-criteria/{price}")
     public ResponseEntity<List<Car>> findCarsWithLessThanCriteria(@PathVariable Long price) {
-        List<Car> cars = carService.findByCarPriceWithLessThanCriteria(price);
+        List<Car> cars = carService.findCarPriceWithLessThanCriteria(price);
         return ResponseEntity.ok(cars);
     }
     @GetMapping(value = "/greater-than-criteria/{price}")
     public ResponseEntity<List<Car>> findCarsWithGreaterThanCriteria(@PathVariable Long price) {
-        List<Car> cars = carService.findByCarPriceWithGreaterThanCriteria(price);
+        List<Car> cars = carService.findCarPriceWithGreaterThanCriteria(price);
 
         return ResponseEntity.ok(cars);
     }
 
     @GetMapping(value = "/interval-criteria/{upperPrice}/{lowerPrice}")
     public ResponseEntity<List<Car>> findCarsWithInterval(@PathVariable Long upperPrice,@PathVariable Long lowerPrice) {
-        List<Car> cars = carService.findByCarUpperAndLowerPriceInterval(upperPrice,lowerPrice);
+        List<Car> cars = carService.findCarUpperAndLowerPriceInterval(upperPrice,lowerPrice);
         return ResponseEntity.ok(cars);
     }
 
     @GetMapping(value = "/get-car-with-model")
     public ResponseEntity<List<Car>> getCarsByModelNameWithStringQuery(@RequestParam("model") String model) {
-        List<Car> cars = carService.findByCarsByModel(model);
+        List<Car> cars = carService.findCarsByModel(model);
+        return ResponseEntity.ok(cars);
+    }
+
+    @GetMapping(value = "/get-car-with-car-type")
+    public ResponseEntity<List<Car>> getCarsByTypeWithNativeQuery(@RequestParam("type") String type) {
+        List<Car> cars = carService.findCarsByCarType(type);
         return ResponseEntity.ok(cars);
     }
 }
