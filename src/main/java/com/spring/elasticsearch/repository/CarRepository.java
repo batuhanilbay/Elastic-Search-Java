@@ -17,4 +17,5 @@ public interface CarRepository extends ElasticsearchRepository<Car,Long> {
     Page<Car> findByModelName(String modelName, Pageable pageable);
 
 
+
 }

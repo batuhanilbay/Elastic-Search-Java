@@ -3,6 +3,7 @@ package com.spring.elasticsearch.service;
 
 import com.spring.elasticsearch.entity.Car;
 import com.spring.elasticsearch.enums.CarType;
+import com.spring.elasticsearch.enums.FuelType;
 import com.spring.elasticsearch.repository.CarRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -95,6 +96,7 @@ public class CarServiceImpl implements CarService{
     @Override
     public List<Car> findCarUpperAndLowerPriceInterval(Long upperPrice, Long lowerPrice) {
         Criteria criteria = new Criteria("price")
+
                 .greaterThanEqual(lowerPrice)
                 .lessThanEqual(upperPrice);
 
@@ -143,6 +145,25 @@ public class CarServiceImpl implements CarService{
             return new ArrayList<Car>();
 
         }
+    }
+
+    @Override
+    public List<Car> findCarsByFuelType(String type) {
+
+        FuelType fuelType = FuelType.valueOf(type.toUpperCase());
+
+        try {
+            Query searchQuery = new StringQuery(
+                    "{\"match\":{\"fuel_type\":{\"query\":\""+ fuelType + "\"}}}\"");
+            SearchHits<Car> cars = elasticsearchOperations.search(
+                    searchQuery,
+                    Car.class);
+            return cars.stream().map(SearchHit::getContent).collect(Collectors.toList());
+        }catch (IllegalArgumentException e){
+            log.error("Geçersiz Yakıt Tipi: " + type);
+            return new ArrayList<Car>();
+        }
+
     }
 
 

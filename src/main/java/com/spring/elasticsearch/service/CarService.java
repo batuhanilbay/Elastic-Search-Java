@@ -16,6 +16,8 @@ public interface CarService {
     List<Car> findCarsByModel(String model);
     List<Car> findCarsByCarType(String type);
 
+    List<Car> findCarsByFuelType(String type);
+
 
 
 }
