@@ -69,4 +69,10 @@ public class CarController {
         List<Car> cars = carService.findCarsByFuelType(type);
         return ResponseEntity.ok(cars);
     }
+
+    @GetMapping(value = "/get-cars-gear-type")
+    public ResponseEntity<List<Car>> getCarsByGearType(@RequestParam("gearType") String gearType) {
+        List<Car> cars = carService.getCarsByGearType(gearType);
+        return ResponseEntity.ok(cars);
+    }
 }

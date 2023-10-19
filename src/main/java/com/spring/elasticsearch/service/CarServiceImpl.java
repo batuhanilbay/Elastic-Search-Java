@@ -4,6 +4,7 @@ package com.spring.elasticsearch.service;
 import com.spring.elasticsearch.entity.Car;
 import com.spring.elasticsearch.enums.CarType;
 import com.spring.elasticsearch.enums.FuelType;
+import com.spring.elasticsearch.enums.GearType;
 import com.spring.elasticsearch.repository.CarRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -50,7 +51,7 @@ public class CarServiceImpl implements CarService{
 
         return carRepository.save(car);
     }
-    //lOBlOYsBXbKPnByAQihL
+
     @Override
     public Iterable<Car> getAllCars() {
 
@@ -127,9 +128,10 @@ public class CarServiceImpl implements CarService{
     @Override
     public List<Car> findCarsByCarType(String type) {
 
+        CarType carType = CarType.valueOf(type.toUpperCase());
+
         try {
 
-            CarType carType = CarType.valueOf(type.toUpperCase());
 
             Query nativeQuery = NativeQuery.builder()
                     .withQuery(q -> q.match(m -> m.field("car_type").query(carType.toString())))
@@ -161,6 +163,21 @@ public class CarServiceImpl implements CarService{
             return cars.stream().map(SearchHit::getContent).collect(Collectors.toList());
         }catch (IllegalArgumentException e){
             log.error("Geçersiz Yakıt Tipi: " + type);
+            return new ArrayList<Car>();
+        }
+
+    }
+
+    @Override
+    public List<Car> getCarsByGearType(String gear) {
+
+        GearType gearType = GearType.valueOf(gear.toUpperCase());
+        try {
+            Page<Car> carsGearPage =
+                    carRepository.findByGearType(gearType.toString(), PageRequest.of(0, 20));
+            return carsGearPage.getContent();
+        }catch (IllegalArgumentException e){
+            log.error("Geçersiz Vites Tipi: " + gear);
             return new ArrayList<Car>();
         }
 

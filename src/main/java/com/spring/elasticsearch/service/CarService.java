@@ -18,6 +18,7 @@ public interface CarService {
 
     List<Car> findCarsByFuelType(String type);
 
+    List<Car> getCarsByGearType(String gear);
 
 
 }
