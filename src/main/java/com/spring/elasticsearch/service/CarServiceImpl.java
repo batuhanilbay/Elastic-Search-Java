@@ -5,6 +5,7 @@ import com.spring.elasticsearch.entity.Car;
 import com.spring.elasticsearch.enums.CarType;
 import com.spring.elasticsearch.repository.CarRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.elasticsearch.client.elc.NativeQuery;
@@ -16,12 +17,14 @@ import org.springframework.data.elasticsearch.core.query.CriteriaQuery;
 import org.springframework.data.elasticsearch.core.query.Query;
 import org.springframework.data.elasticsearch.core.query.StringQuery;
 import org.springframework.stereotype.Service;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class CarServiceImpl implements CarService{
 
     private final CarRepository carRepository;
@@ -122,16 +125,24 @@ public class CarServiceImpl implements CarService{
     @Override
     public List<Car> findCarsByCarType(String type) {
 
-        CarType carType = CarType.valueOf(type.toUpperCase());
+        try {
 
-        Query nativeQuery = NativeQuery.builder()
-                .withQuery(q -> q.match(m -> m.field("car_type").query(carType.toString()))).build();
+            CarType carType = CarType.valueOf(type.toUpperCase());
 
-        SearchHits<Car> cars = elasticsearchOperations.search(
-                nativeQuery,
-                Car.class);
+            Query nativeQuery = NativeQuery.builder()
+                    .withQuery(q -> q.match(m -> m.field("car_type").query(carType.toString())))
+                    .build();
 
-        return cars.stream().map(SearchHit::getContent).collect(Collectors.toList());
+            SearchHits<Car> cars = elasticsearchOperations.search(nativeQuery, Car.class);
+
+            return cars.stream().map(SearchHit::getContent).collect(Collectors.toList());
+
+        } catch (IllegalArgumentException e) {
+
+            log.error("Geçersiz Araç Tipi: " + type);
+            return new ArrayList<Car>();
+
+        }
     }
 
 
