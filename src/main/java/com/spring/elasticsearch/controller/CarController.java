@@ -1,6 +1,7 @@
 package com.spring.elasticsearch.controller;
 
 import com.spring.elasticsearch.entity.Car;
+import com.spring.elasticsearch.exceptions.CarNotFoundException;
 import com.spring.elasticsearch.service.CarServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -74,5 +75,11 @@ public class CarController {
     public ResponseEntity<List<Car>> getCarsByGearType(@RequestParam("gearType") String gearType) {
         List<Car> cars = carService.getCarsByGearType(gearType);
         return ResponseEntity.ok(cars);
+    }
+
+    @PutMapping(value = "/update/{id}")
+    public ResponseEntity<Car> updateCar(@PathVariable("id") String id, @RequestBody Car car) throws CarNotFoundException {
+        Car newCar = carService.updateCar(id,car);
+        return ResponseEntity.ok(newCar);
     }
 }

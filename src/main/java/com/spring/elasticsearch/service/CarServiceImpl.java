@@ -5,6 +5,7 @@ import com.spring.elasticsearch.entity.Car;
 import com.spring.elasticsearch.enums.CarType;
 import com.spring.elasticsearch.enums.FuelType;
 import com.spring.elasticsearch.enums.GearType;
+import com.spring.elasticsearch.exceptions.CarNotFoundException;
 import com.spring.elasticsearch.repository.CarRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,10 +15,7 @@ import org.springframework.data.elasticsearch.client.elc.NativeQuery;
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 import org.springframework.data.elasticsearch.core.SearchHit;
 import org.springframework.data.elasticsearch.core.SearchHits;
-import org.springframework.data.elasticsearch.core.query.Criteria;
-import org.springframework.data.elasticsearch.core.query.CriteriaQuery;
-import org.springframework.data.elasticsearch.core.query.Query;
-import org.springframework.data.elasticsearch.core.query.StringQuery;
+import org.springframework.data.elasticsearch.core.query.*;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Date;
@@ -181,6 +179,27 @@ public class CarServiceImpl implements CarService{
             return new ArrayList<Car>();
         }
 
+    }
+
+    @Override
+    public Car updateCar(String id, Car car) throws CarNotFoundException {
+
+        Date currentDate = new Date();
+
+        Car updatedCar = carRepository.findById(id)
+                .orElseThrow(() -> new CarNotFoundException("There is not found Car"));
+
+        updatedCar.setId(id);
+        updatedCar.setBrand(car.getBrand());
+        updatedCar.setModel(car.getModel());
+        updatedCar.setCarType(car.getCarType());
+        updatedCar.setFuelType(car.getFuelType());
+        updatedCar.setGearType(car.getGearType());
+        updatedCar.setPrice(car.getPrice());
+        updatedCar.setKm(car.getKm());
+        updatedCar.setUpdatedDate(currentDate);
+
+        return carRepository.save(updatedCar);
     }
 
 

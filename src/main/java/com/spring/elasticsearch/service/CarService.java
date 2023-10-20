@@ -2,6 +2,7 @@ package com.spring.elasticsearch.service;
 
 
 import com.spring.elasticsearch.entity.Car;
+import com.spring.elasticsearch.exceptions.CarNotFoundException;
 import java.util.List;
 
 public interface CarService {
@@ -19,6 +20,8 @@ public interface CarService {
     List<Car> findCarsByFuelType(String type);
 
     List<Car> getCarsByGearType(String gear);
+
+    Car updateCar(String id, Car car) throws CarNotFoundException;
 
 
 }
